@@ -1,70 +1,146 @@
-html,
-body {
-    margin: 0;
-    padding: 0;
+/* Reset the margin and padding for all elements */
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #FAF8F4; /* warm cream background color */
+  font-family: "Georgia", serif;
 }
 
+/* Styling for the entire page header, including the title, disclaimer, and search bar */
 .main-header {
-    background-color: rgba(0, 0, 0, .3);
-    padding-bottom: 10px;
+  background-color: #D1A284;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
+/* More specific styling for the title container within the header */
+.title-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Styling for the search bar container within the header */
+#search-container {
+  position: absolute;
+  top: 20px; /* Adjust these values */
+  right: 20px; /* Adjust these values */
+}
+
+/* Styling for the search input field */
+#search-input {
+  width: 200px;
+  height: 30px;
+  margin-right: 10px;
+  padding: 3px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Styling for the search button */
+#search-button {
+  font-size: 16px;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+
+#search-container {
+  margin-top: 20px;
+}
+
+/* Styling for title */
 .title {
-    text-align: center;
-    margin: 0;
-    font-size: 8em;
-    font-family: "Helvetica";
-    font-weight: normal;
-    color: white;
+  margin: 0;
+  font-size: 3em; /* Reduced the size to make it less overwhelming */
+  color: #43241A; /* dark brown color for title */
 }
 
+/* Styling for the disclaimer */
+.disclaimer {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 1em;
+  color: #7a422f;
+}
+
+/* Styling for the container that holds all the cafe cards */
 #card-container {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* To allow the cards to wrap to next line on smaller screens */
+  padding: 20px;
 }
 
+/* Styling for individual card */
 .card {
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 5px;
+  height: 50vh;
+  width: 300px; /* Reduced size for better multiple card view */
+  border: 1px solid #ccc;
+  border-radius: 5px; /* Softened the border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  overflow: auto;
+  background-color: white; /* Giving the card a base color can enhance the feeling of warmth */
+  transition: transform .2s; /* added transition for smooth transform */
 }
 
+/* Specify a transition effect for the transform property (scale), to apply a "zoom" effect on hover */
+.card:hover {
+  transform: scale(1.03);  /* Slightly increase size of card during hover for interactive effect */
+}
+
+/* Styling for the content within an individual cafe card */
 .card-content {
-    padding: 20px;
-    font-family: "Verdana";
-    color: #777;
+  padding: 20px;
+  color: #43241A; /* Dark brown color for card content text */
 }
 
+/* Styling for the cafe title within the card content */
 .card-content h2 {
-    margin-top: 0;
-    font-size: 20px;
+  margin-top: 0;
+  font-size: 20px;
 }
 
+/* Styling for the cafe image within the card */
 .card img {
-    width: 100%;
-    height: auto;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 5px 5px 0 0; /* added border radius to match card's border */
 }
 
+/* Styling for footer */
 .footer {
-    display: flex;
-    justify-content: center;
-    background-color: rgba(0, 0, 0, .3);
-    padding: 10px;
+  display: flex;
+  justify-content: center; /* Aligns content horizontally center */
+  align-items: center; /* Aligns content vertically center */
+  background-color: #D1A284; /* warm brown background color for footer */
+  padding: 10px;
+  overflow: auto; /* Add this to prevent margin collapsing */
+  flex-wrap: wrap; /* Allow the items to wrap onto next line on smaller screens */
 }
 
+/* Styling for buttons */
 button {
-    text-align: center;
-    background-color: #666;
-    border: none;
-    padding-left: 10px;
-    padding-right: 10px;
-    height: 40px;
-    border-radius: 10px;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    margin: 5px;
+  background-color: #A26736; /* warm dark brown color */
+  border: none;
+  color: white;
+  text-align: center;
+  height: 40px;
+  padding: 0 10px;
+  border-radius: 5px;
+  font-size: 22px;
+  cursor: pointer;
+  margin: 5px;
+  transition: background-color .4s; /* added transition for smooth color change */
+}
+
+/* Change button background color on hover for a "button pressed" effect */
+button:hover {
+  background-color: #43241A;  /* Changes color on hover for interactive effect */
 }
