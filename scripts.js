@@ -1,94 +1,144 @@
-/**
- * Data Catalog Project Starter Code - SEA Stage 2
- *
- * This file is where you should be doing most of your work. You should
- * also make changes to the HTML and CSS files, but we want you to prioritize
- * demonstrating your understanding of data structures, and you'll do that
- * with the JavaScript code you write in this file.
- * 
- * The comments in this file are only to help you learn how the starter code
- * works. The instructions for the project are in the README. That said, here
- * are the three things you should do first to learn about the starter code:
- * - 1 - Change something small in index.html or style.css, then reload your 
- *    browser and make sure you can see that change. 
- * - 2 - On your browser, right click anywhere on the page and select
- *    "Inspect" to open the browser developer tools. Then, go to the "console"
- *    tab in the new window that opened up. This console is where you will see
- *    JavaScript errors and logs, which is extremely helpful for debugging.
- *    (These instructions assume you're using Chrome, opening developer tools
- *    may be different on other browsers. We suggest using Chrome.)
- * - 3 - Add another string to the titles array a few lines down. Reload your
- *    browser and observe what happens. You should see a fourth "card" appear
- *    with the string you added to the array, but a broken image.
- * 
- */
-
-
-const FRESH_PRINCE_URL = "https://upload.wikimedia.org/wikipedia/en/3/33/Fresh_Prince_S1_DVD.jpg";
-const CURB_POSTER_URL = "https://m.media-amazon.com/images/M/MV5BZDY1ZGM4OGItMWMyNS00MDAyLWE2Y2MtZTFhMTU0MGI5ZDFlXkEyXkFqcGdeQXVyMDc5ODIzMw@@._V1_FMjpg_UX1000_.jpg";
-const EAST_LOS_HIGH_POSTER_URL = "https://static.wikia.nocookie.net/hulu/images/6/64/East_Los_High.jpg";
-
-// This is an array of strings (TV show titles)
-let titles = [
-    "Fresh Prince of Bel Air",
-    "Curb Your Enthusiasm",
-    "East Los High"
+// Data for all the cafes
+let cafes = [
+  {
+    name: "Smoking Tiger",
+    location: "11190 South St #134, Cerritos, CA 90703",
+    rating: 4.4,
+    number_of_reviews: 58,
+    imageURL: "https://s3-media0.fl.yelpcdn.com/bphoto/I4Xtn4-OAmkLEk7B1tddTw/348s.jpg"
+  },
+  {
+    name: "Caffe Bené",
+    location: "1555 Sepulveda Blvd, Torrance, CA 90501",
+    rating: 4.2,
+    number_of_reviews: 318,
+    imageURL: "https://res.heraldm.com/content/image/2016/02/04/20160204001792_0.jpg"
+  },
+  {
+    name: "Starbucks",
+    location: "31202 Palos Verdes Dr W Golden Cove Shopping Center, Rancho Palos Verdes, CA 90275-5361",
+    rating: 4.5,
+    number_of_reviews: 73,
+    imageURL: "https://images.pexels.com/photos/3352765/pexels-photo-3352765.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  },
+  {
+    name: "Meet Fresh",
+    location: "11900 South St Ste 109, Cerritos, CA 90703",
+    rating: 4.2,
+    number_of_reviews: 225,
+    imageURL: "https://static.wixstatic.com/media/1a3e4e_9dda8ac67ad94a78ad79ab6c28ebe18e~mv2.jpg/v1/fill/w_800,h_533,al_c,q_85/1a3e4e_9dda8ac67ad94a78ad79ab6c28ebe18e~mv2.jpg"
+  }
 ];
-// Your final submission should have much more data than this, and 
-// you should use more than just an array of strings to store it all.
 
-
-// This function adds cards the page to display the data in the array
+// Function to display all cafe cards
+// Get a reference to the container that will hold the cafe cards
+// Clear out the old cards
+// Clone the template card
+// For each cafe in the cafes array, update the cloned card with this cafe's data
+// Lastly, append the new card to the container
 function showCards() {
-    const cardContainer = document.getElementById("card-container");
-    cardContainer.innerHTML = "";
-    const templateCard = document.querySelector(".card");
-    
-    for (let i = 0; i < titles.length; i++) {
-        let title = titles[i];
+  const cardContainer = document.getElementById("card-container");
+  cardContainer.innerHTML = "";
+  const templateCard = document.querySelector(".card");
 
-        // This part of the code doesn't scale very well! After you add your
-        // own data, you'll need to do something totally different here.
-        let imageURL = "";
-        if (i == 0) {
-            imageURL = FRESH_PRINCE_URL;
-        } else if (i == 1) {
-            imageURL = CURB_POSTER_URL;
-        } else if (i == 2) {
-            imageURL = EAST_LOS_HIGH_POSTER_URL;
-        }
-
-        const nextCard = templateCard.cloneNode(true); // Copy the template card
-        editCardContent(nextCard, title, imageURL); // Edit title and image
-        cardContainer.appendChild(nextCard); // Add new card to the container
-    }
+  for (let i = 0; i < cafes.length; i++) {
+    const nextCard = templateCard.cloneNode(true);
+    editCardContent(nextCard, cafes[i]);
+    cardContainer.appendChild(nextCard);
+  }
 }
 
-function editCardContent(card, newTitle, newImageURL) {
-    card.style.display = "block";
+// Function that takes a card element and a cafe object, and updates the card element with the cafe's data
+// Set the display style of the card to "block" to make it visible
+// Set the text content of the cafe name element to the cafe's name
+// Set the source of the image element to the cafe's imageURL
+// Set the alt text of the image element to "Cafe name: " followed by the cafe's name
+function editCardContent(card, cafe) {
+  card.style.display = "block";
+  card.querySelector(".cafe-name").textContent = cafe.name;
+  card.querySelector("img").src = cafe.imageURL;
+  card.querySelector("img").alt = "Cafe name: " + cafe.name;
 
-    const cardHeader = card.querySelector("h2");
-    cardHeader.textContent = newTitle;
+  let actualRating = Math.round(cafe.rating * 2) / 2;
+  let starRating = `${"★".repeat(Math.floor(actualRating))}${"☆".repeat(5 - Math.floor(actualRating))}`;
 
-    const cardImage = card.querySelector("img");
-    cardImage.src = newImageURL;
-    cardImage.alt = newTitle + " Poster";
+  card.querySelector(".number-rating").textContent = cafe.rating;
+  card.querySelector(".star-rating").textContent = starRating;
+  card.querySelector(".reviews-count").textContent = cafe.number_of_reviews;
 
-    // You can use console.log to help you debug!
-    // View the output by right clicking on your website,
-    // select "Inspect", then click on the "Console" tab
-    console.log("new card:", newTitle, "- html: ", card);
+  let cafeLocationElement = card.querySelector("#maps-link");
+  cafeLocationElement.href = cafe.mapsLink;
+  cafeLocationElement.textContent = cafe.location;
 }
 
-// This calls the addCards() function when the page is first loaded
-document.addEventListener("DOMContentLoaded", showCards);
-
-function quoteAlert() {
-    console.log("Button Clicked!")
-    alert("I guess I can kiss heaven goodbye, because it got to be a sin to look this good!");
+// Function that takes a location string and returns a Google Maps link for that location
+function getGoogleMapsLink(location) {
+  let formattedLocation = encodeURIComponent(location);
+  return `https://www.google.com/maps/search/?api=1&query=${formattedLocation}`;
 }
 
-function removeLastCard() {
-    titles.pop(); // Remove last item in titles array
-    showCards(); // Call showCards again to refresh
+// Add Google Maps links to all cafes
+cafes.forEach((cafe) => {
+  cafe.mapsLink = getGoogleMapsLink(cafe.location);
+});
+
+// Function to sort the cafes array by rating, and then update the cards displayed on page
+function sortCafesByRating() {
+  cafes.sort((a, b) => b.rating - a.rating);
+  showCards();
 }
+
+// Function to sort cafes by number of reviews
+function sortCafeByNumberofRating() {
+  cafes.sort((a, b) => b.number_of_reviews - a.number_of_reviews);
+  showCards();
+}
+
+// Similar functions to sort the cafes array by number of reviews, name (from A to Z), and name (from Z to A)
+function sortCafeByAtoZ() {
+  cafes.sort((a, b) => a.name.localeCompare(b.name));
+  showCards();
+}
+
+function sortCafeByZtoA() {
+  cafes.sort((a, b) => b.name.localeCompare(a.name));
+  showCards();
+}
+
+// Make a copy of the original cafes array to save the original order
+let originalCafes = [...cafes]; // create a copy of original cafes array
+
+// Function to filter the cafes array by search keyword, and then update the cards displayed on page
+function searchCafes() {
+  const searchQuery = document.querySelector("#search-input").value.toLowerCase();
+
+  const filteredCafes = originalCafes.filter(cafe => cafe.name.toLowerCase().includes(searchQuery));
+
+  cafes = [...filteredCafes];  // assign a copy of filtered results array
+  showCards();
+}
+
+// Function to restore the cafes array to its original order, and then update the cards displayed on page
+function defaultOrder() {
+  cafes = [...originalCafes];
+  showCards();
+}
+
+// Code that runs once the page finishes loading
+document.addEventListener("DOMContentLoaded", function() {
+  showCards();
+  document.querySelector("#sort-by-rating-button").addEventListener("click", sortCafesByRating);
+  document.querySelector("#sort-by-number-of-reviews").addEventListener("click", sortCafeByNumberofRating);
+  document.querySelector("#sort-by-A-Z").addEventListener("click", sortCafeByAtoZ);
+  document.querySelector("#sort-by-Z-A").addEventListener("click", sortCafeByZtoA);
+  document.querySelector("#default-order").addEventListener("click", defaultOrder);
+
+  let searchInput = document.querySelector("#search-input");
+  let searchBtn = document.querySelector("#search-button");
+
+  searchBtn.addEventListener("click", searchCafes);
+  searchInput.addEventListener("input", function (event) {
+      event.preventDefault(); // prevent form submission
+      searchCafes();
+  });
+});
